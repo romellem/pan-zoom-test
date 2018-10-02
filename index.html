@@ -39,7 +39,9 @@
             border-radius: 0;
         }
 
-        .noUi-handle:focus {outline:0;}
+        .noUi-handle:focus {
+            outline: 0;
+        }
 
         .noUi-vertical {
             width: 3px;
@@ -165,13 +167,13 @@
                 }]
             });
 
-            $('.image-1').on('click', function(e) {
+            $('.image-1').on('click', function (e) {
                 window.viewer.goToPage(0);
             });
-            $('.image-2').on('click', function(e) {
+            $('.image-2').on('click', function (e) {
                 window.viewer.goToPage(1);
             })
-            $('.image-3').on('click', function(e) {
+            $('.image-3').on('click', function (e) {
                 window.viewer.goToPage(2);
             })
             // var elt = document.createElement("div");
@@ -190,10 +192,18 @@
                 orientation: 'vertical',
                 direction: 'rtl',
                 range: {
-                    'min': [1],
-                    'max': [40]
+                    'min': [0],
+                    'max': [1]
                 }
             });
+
+            slider.noUiSlider.on('slide', function (values, handle, unencoded, tap, positions) {
+                console.log(values);
+            });
+
+            // setInterval(function() {
+            //     console.log(viewer.viewport.getZoom())
+            // }, 500)
 
         })
     </script>
