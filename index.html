@@ -200,11 +200,22 @@
                 }
             });
 
-            slider_ele.noUiSlider.on('slide', function (values, handle, unencoded, tap, positions) {
+            // slider_ele.noUiSlider.on('slide', function (values, handle, unencoded, tap, positions) {
+            slider_ele.noUiSlider.on('slide', function (values) {
                 var zoom_val = parseFloat(values[0]);
+                // @link http://openseadragon.github.io/docs/OpenSeadragon.Viewport.html#zoomTo
                 window.viewer.viewport.zoomTo(zoom_val);
             });
 
+            var sliding = false;
+            slider_ele.noUiSlider.on('start', function () {
+                sliding = true;
+            });
+            slider_ele.noUiSlider.on('end', function () {
+                sliding = false;
+            });
+
+            // @link http://openseadragon.github.io/docs/OpenSeadragon.Viewer.html#.event:open
             window.viewer.addHandler('open', function (e) {
                 slider_ele.noUiSlider.updateOptions(
                     {
@@ -215,6 +226,12 @@
                     },
                     true
                 );
+            });
+            window.viewer.addHandler('zoom', function (e) {
+                if (!sliding) {
+                    slider_ele.noUiSlider.set(e.zoom);
+                }
+
             });
 
 
