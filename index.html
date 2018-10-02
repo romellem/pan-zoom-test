@@ -12,6 +12,24 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/nouislider.css">
+    <style>
+        .noUi-handle {
+            background: green;
+            border-radius: 99999px;
+
+            width: 20px !important;
+            height: 20px !important;
+
+            /* Override stuff we don't need */
+            border: none;
+            box-shadow: none;
+        }
+
+        .noUi-handle::before,
+        .noUi-handle::after {
+            display: none;
+        }
+    </style>
     <script src="js/openseadragon.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/nouislider.js"></script>
@@ -20,13 +38,33 @@
 <body>
     <h1>Pinch to zoom on the image below</h1>
 
+
     <div class="viewer-wrapper">
-        <div id="example-inline-configuration-for-dzi"></div>
+        <div id="example-inline-configuration-for-dzi">
+            <div class="buttons-wrapper">
+                <button class="image-1">Image 1</button>
+                <button class="image-2">Image 2</button>
+                <button class="image-3">Image 3</button>
+
+                <br><br>
+                <div class="slider-wrapper">
+                    <div class="slider"></div>
+                    <div class="pips">
+                        <ul>
+                            <li>40x</li>
+                            <li>20x</li>
+                            <li>10x</li>
+                            <li>1x</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
-    <div style="float: left; width: 150px;" class="example">
+    <!-- <div style="float: left; width: 150px;" class="example">
         <div class="slider pips-range"></div>
-    </div>
+    </div> -->
 
     <script>
         $(function () {
@@ -99,6 +137,15 @@
                 }]
             });
 
+            $('.image-1').on('click', function(e) {
+                window.viewer.goToPage(0);
+            });
+            $('.image-2').on('click', function(e) {
+                window.viewer.goToPage(1);
+            })
+            $('.image-3').on('click', function(e) {
+                window.viewer.goToPage(2);
+            })
             // var elt = document.createElement("div");
             // elt.id = "runtime-overlay";
             // elt.className = "overlay";
@@ -113,14 +160,10 @@
                 start: 0,
                 connect: false,
                 orientation: 'vertical',
+                direction: 'rtl',
                 range: {
                     'min': [1],
                     'max': [40]
-                },
-                pips: {
-                    mode: 'values',
-                    values: [1, 10, 20, 40],
-                    // density: 4
                 }
             });
 
