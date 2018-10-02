@@ -1,1 +1,131 @@
-<h1>hello world</h1>
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Default Layout</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nouislider.css">
+    <script src="js/openseadragon.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/nouislider.js"></script>
+</head>
+
+<body>
+    <h1>Pinch to zoom on the image below</h1>
+
+    <div class="viewer-wrapper">
+        <div id="example-inline-configuration-for-dzi"></div>
+
+    </div>
+    <div style="float: left; width: 150px;" class="example">
+        <div class="slider pips-range"></div>
+    </div>
+
+    <script>
+        $(function () {
+            window.viewer = OpenSeadragon({
+                id: "example-inline-configuration-for-dzi",
+                prefixUrl: "images/ui/",
+                showNavigator: false,
+                // iOSDevice: true,
+                visibilityRatio: 1,
+                springStiffness: 9,
+                sequenceMode: true,
+                // showFullPageControl: false,
+                // showNavigationControl: false,
+                // showSequenceControl: false,
+                tileSources: [{
+                    /*
+                        <?xml version="1.0"?>
+                        <Image TileSize="256" Overlap="0" Format="jpg" xmlns="http://schemas.microsoft.com/deepzoom/2008">
+                        <Size Width="10240" Height="6400"/>
+                        </Image>
+
+                    */
+                    Image: {
+                        xmlns: "http://schemas.microsoft.com/deepzoom/2008",
+                        Url: "images/sunset/files/",
+                        Format: "jpg",
+                        Overlap: "0",
+                        TileSize: "256",
+                        Size: {
+                            Width: "10240",
+                            Height: "6400"
+                        }
+                    }
+                }, {
+                    /*
+                        <?xml version="1.0"?>
+                        <Image TileSize="256" Overlap="0" Format="jpg" xmlns="http://schemas.microsoft.com/deepzoom/2008">
+                        <Size Width="19590" Height="2421"/>
+                        </Image>
+                    */
+                    Image: {
+                        xmlns: "http://schemas.microsoft.com/deepzoom/2008",
+                        Url: "images/mars/files/",
+                        Format: "jpg",
+                        Overlap: "0",
+                        TileSize: "256",
+                        Size: {
+                            Width: "19590",
+                            Height: "2421"
+                        }
+                    }
+                }, {
+                    /*
+                        <?xml version="1.0"?>
+                        <Image TileSize="256" Overlap="0" Format="jpg" xmlns="http://schemas.microsoft.com/deepzoom/2008">
+                        <Size Width="10240" Height="6400"/>
+                        </Image>
+                    */
+                    Image: {
+                        xmlns: "http://schemas.microsoft.com/deepzoom/2008",
+                        Url: "images/yacht/files/",
+                        Format: "jpg",
+                        Overlap: "0",
+                        TileSize: "256",
+                        Size: {
+                            Width: "10240",
+                            Height: "6400"
+                        }
+                    }
+                }]
+            });
+
+            // var elt = document.createElement("div");
+            // elt.id = "runtime-overlay";
+            // elt.className = "overlay";
+            // elt.textContent = 'Hello World!';
+            // window.viewer.addOverlay({
+            //     element: elt,
+            //     location: new OpenSeadragon.Rect(0.1, 0.1, 0.2, 0.25)
+            // });
+
+            var slider = document.querySelector('.slider');
+            noUiSlider.create(slider, {
+                start: 0,
+                connect: false,
+                orientation: 'vertical',
+                range: {
+                    'min': [1],
+                    'max': [40]
+                },
+                pips: {
+                    mode: 'values',
+                    values: [1, 10, 20, 40],
+                    // density: 4
+                }
+            });
+
+        })
+    </script>
+</body>
+
+</html>
