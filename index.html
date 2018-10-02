@@ -201,7 +201,8 @@
             });
 
             slider_ele.noUiSlider.on('slide', function (values, handle, unencoded, tap, positions) {
-                console.log(values);
+                var zoom_val = parseFloat(values[0]);
+                window.viewer.viewport.zoomTo(zoom_val);
             });
 
             window.viewer.addHandler('open', function (e) {
