@@ -98,7 +98,7 @@
 
     <script>
         $(function () {
-            window.viewer = OpenSeadragon({
+            window.viewer = new OpenSeadragon.Viewer({
                 id: "example-inline-configuration-for-dzi",
                 prefixUrl: "images/ui/",
                 showNavigator: false,
@@ -165,7 +165,10 @@
                         }
                     }
                 }]
-            });
+            })
+
+            var slider_ele = document.querySelector('.slider');
+            var slider;
 
             $('.image-1').on('click', function (e) {
                 window.viewer.goToPage(0);
@@ -185,21 +188,37 @@
             //     location: new OpenSeadragon.Rect(0.1, 0.1, 0.2, 0.25)
             // });
 
-            var slider = document.querySelector('.slider');
-            noUiSlider.create(slider, {
+
+            slider = noUiSlider.create(slider_ele, {
                 start: 0,
                 connect: false,
                 orientation: 'vertical',
                 direction: 'rtl',
                 range: {
-                    'min': [0],
-                    'max': [1]
+                    min: [0],
+                    max: [1]
                 }
             });
 
-            slider.noUiSlider.on('slide', function (values, handle, unencoded, tap, positions) {
+            slider_ele.noUiSlider.on('slide', function (values, handle, unencoded, tap, positions) {
                 console.log(values);
             });
+
+            window.viewer.addHandler('open', function (e) {
+                slider_ele.noUiSlider.updateOptions(
+                    {
+                        range: {
+                            min: [window.viewer.viewport.getMinZoom()],
+                            max: [window.viewer.viewport.getMaxZoom()]
+                        }
+                    },
+                    true
+                );
+            });
+
+
+
+            // 
 
             // setInterval(function() {
             //     console.log(viewer.viewport.getZoom())
